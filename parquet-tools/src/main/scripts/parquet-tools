@@ -77,4 +77,9 @@ if [ "${TERMOUT}" == "true" ]; then
 fi
 
 # Run the application
-exec ${JAVACMD} ${DEFAULT_JVM_OPTS} ${JAVA_OPTS} ${PARQUET_TOOLS_OPTS} -classpath "${APPPATH}:${APPPATH}/lib/*" parquet.tools.Main "$@"
+if type hadoop > /dev/null 2>&1; then
+  PARQUET_TOOLS_JAR=$(find "${APPPATH}" -name parquet-tools-*.jar | grep -v tests)
+  HADOOP_CLASSPATH="${APPPATH}/lib/*" hadoop jar "${PARQUET_TOOLS_JAR}" parquet.tools.Main "$@"
+else
+  exec ${JAVACMD} ${DEFAULT_JVM_OPTS} ${JAVA_OPTS} ${PARQUET_TOOLS_OPTS} -classpath "${APPPATH}:${APPPATH}/lib/*" parquet.tools.Main "$@"
+fi
