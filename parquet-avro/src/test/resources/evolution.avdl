@@ -1,0 +1,24 @@
+@namespace("parquet.avro")
+protocol Evolution {
+
+    record RecordOne {
+        union { null, string } str_field = null;
+        union { null, int } int_field = null;
+        union { null, long } long_field = null;
+    }
+
+    record RecordTwo {
+        union { null, string } str_field = null;
+        union { null, int } int_field = null;
+        union { null, long } long_field = null;
+        union { null, boolean } bool_field = null;
+    }
+
+    record RecordThree {
+        union { null, string } str_field = null;
+        union { null, boolean } bool_field = null;
+        union { null, int } int_field = null;
+        union { null, long } long_field = null;
+    }
+
+}
